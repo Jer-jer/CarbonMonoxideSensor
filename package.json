@@ -1,11 +1,14 @@
 {
-  "name": "sensorproject",
+  "name": "carbonmonoxidesensor",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "johnny-five": "^2.0.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.6",
     "serve-favicon": "^2.5.0",
     "ws": "^7.4.1"
   },
@@ -13,6 +16,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jer-jer/CarbonMonoxideSensor.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jer-jer/CarbonMonoxideSensor/issues"
+  },
+  "homepage": "https://github.com/Jer-jer/CarbonMonoxideSensor#readme"
 }
