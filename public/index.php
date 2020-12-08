@@ -26,6 +26,18 @@
                 <div class="container bud">
                     <div class="fluid-container flex-child first">
                         <form method="POST" action="/#">
+                            <?php 
+                                $servername = "localhost";
+                                $username = "root";
+                                $password = "";
+
+                                //CREATE CONNECTION AND CHECK
+                                $db = new mysqli($servername, $username, $password);
+                                if($db->connect_error) die ("Connection Failed Successfully: " . $db->connect_error);
+
+                                echo "Connected Successfully";
+                                
+                            ?>
                             <h1 style="color: red;">
                                 WARNING!! CHANGE AT YOUR OWN RISK!!
                             </h1>
@@ -38,8 +50,20 @@
                             <label for="exampleFormControlSelect1" class="labels">Level:</label>
                             <p style="font-size: 12px;">How strong do you like it?</p>
     
-                                <center>  
-                                    <input id="slider11" name="level" class="border-0 slider" type="range" min="1" max="10" value="8"/>
+                                <center>
+                                    <?php 
+                                        $level = "SELECT levels FROM current_state WHERE DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(NOW(), '%d');"
+                                        $result = $db->query($level);
+
+                                        if($result->num_rows > 0){
+                                            while($row = $result->fetch_assoc()){
+                                                echo '<input id="slider11" name="level" class="border-0 slider" type="range" min="1" max="10" value="'.$row[3].'"/>';
+                                            }
+                                        }else{
+                                            echo"0 results";
+                                        }
+                                    ?>  
+                                    <!-- <input id="slider11" name="level" class="border-0 slider" type="range" min="1" max="10" value="8"/> -->
                                     <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan textSpan" style="font-size: 28px;"></span>
                                 </center>
                             </div>
