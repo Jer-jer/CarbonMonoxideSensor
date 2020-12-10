@@ -1,19 +1,21 @@
 const express = require('express');
 const five = require('johnny-five');
-const WebSocket = require("ws");
 const favicon = require('serve-favicon');
 const path = require('path');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
-const { isBuffer } = require('util');
+const router = express.Router();
+
+//ROUTERS
+const indexRouter = require('./routes/index');
 
 var board = new five.Board();
 var app = express();
-var port = 8080;
+var port = 3000;
 // var wss = new WebSocket.Server({port: 8080});
 var level = 8;
 
-//Create DB
+//CONNECT DB
 const db = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
@@ -24,8 +26,22 @@ const db = mysql.createConnection({
 //Create Route and Open Server
 app.use(bodyParser.urlencoded({extended: true}));
 app.listen(port, () => {console.log("Server Live on port 3000")});
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')))
-app.use('/', express.static(__dirname + '/public'));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+
+//Set Views
+app.set('views','./views');
+app.set('view engine', 'ejs');
+
+//STATIC ROUTES
+app.use(express.static('/public'));
+app.use('/css', express.static(__dirname + '/public/css'));
+app.use('/js', express.static(__dirname + '/public/js'));
+app.use('/images', express.static(__dirname + '/public/images'));
+
+
+//PAGES
+app.use('/', indexRouter);
+
 
 //Connect DB
 db.connect((err) => {
