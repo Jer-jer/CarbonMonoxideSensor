@@ -51,6 +51,11 @@ db.connect((err) => {
     console.log("Database Successfully Connected");
 });
 
+//INSERT DATA DAILY
+let insert = "INSERT IGNORE INTO current_state (levels, dateSensed) VALUES (8, NOW());";
+db.query(insert, (err) => {
+    if(err) throw err;
+});
 
 //UPDATE LEVEL
 app.post('/', function(req, res) {
@@ -89,7 +94,7 @@ board.on('ready', function(){
 
         //UPDATE SENSOR VALUE IN DATABASE
         // let sensorVAL = "UPDATE current_state SET ppmVal = "+ sensor.value +" WHERE idNum = 1;";
-        let sensorVAL = "UPDATE current_state SET ppmVal = "+ sensor.value +" WHERE DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(NOW(), '%d');";
+        let sensorVAL = "UPDATE current_state SET ppmVal = "+ sensor.value +", currentLevel = "+ sensor.scaleTo(0, 10) +" WHERE DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(NOW(), '%d');";
         db.query(sensorVAL, (err) => {
             if(err) throw err;
         });

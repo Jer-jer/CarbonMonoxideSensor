@@ -23,7 +23,7 @@
 
                 <div class="container bud">
                     <div class="fluid-container flex-child first">
-                        <form method="POST" action="/#">
+                        <form method="POST" action="/">
                             <h1 style="color: red;">
                                 WARNING!! CHANGE AT YOUR OWN RISK!!
                             </h1>
@@ -51,10 +51,9 @@
                     <div class="container-fluid flex-child second">
                         <center>
                             <h1>Gas Level:</h1>
-                            <h2 class="space1 val"><%=data.levels%></h2>
+                            <h2 class="space1 val"><%=data.currentLevel%></h2>
                             <h1 class="space2">Gas Value(0-1023):</h1>
                             <h2 class="val"><%=data.ppmVal%></h2>
-                            <%})    }%>
                         </center>
                         <!-- ================
                             HI ALLAN! Here's a link
@@ -81,35 +80,11 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>8</td>
-                                <td>Otto</td>
+                                <th scope="row"><%=data.dateeSensed%></th>
+                                <td><%=data.lastPPM%></td>
+                                <td><%=data.levelss%></td>
                               </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>8</td>
-                                <td>Thornton</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>8</td>
-                                <td>the Bird</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">4</th>
-                                <td>Larry</td>
-                                <td>8</td>
-                                <td>the Bird</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">5</th>
-                                <td>Larry</td>
-                                <td>8</td>
-                                <td>the Bird</td>
-                              </tr>
+                              <%})    }%>
                             </tbody>
                           </table>
                     </div>

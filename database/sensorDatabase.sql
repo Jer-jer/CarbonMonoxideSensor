@@ -4,24 +4,30 @@ USE sensordb;
 
 CREATE TABLE current_state(
     idNum int(20) NOT NULL AUTO_INCREMENT,
+    currentLevel int NOT NULL,
     ppmVal int NOT NULL,
-    dateSensed DATE NOT NULL,
+    dateSensed DATE NOT NULL UNIQUE,
     levels int NOT NULL,
-    stats varchar(50),
 
     PRIMARY KEY(idNum)
 );
 
 CREATE TABLE overall_states(
     id int(20) NOT NULL,
-    avgPPM float NOT NULL,
-    dateSensed DATE NOT NULL,
-    levels int NOT NULL,
+    lastPPM float NOT NULL,
+    dateeSensed DATE NOT NULL UNIQUE,
+    levelss int NOT NULL,
     stats varchar(50),
 
     PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES current_state(idNum)
 );
 
-ALTER TABLE current_state ALTER dateSensed SET DEFAULT NOW();
-INSERT INTO current_state (levels) VALUES (8);
+CREATE EVENT dataTransfer
+ON SCHEDULE 
+EVERY 1 DAY
+DO
+INSERT INTO overall_states (id, lastPPM, dateSensed, levels)
+SELECT id, ppmVal, dateeSensed, levelss
+FROM current_state
+WHERE dateSensed = DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(NOW(), '%d');

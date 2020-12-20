@@ -10,7 +10,7 @@ const db = mysql.createConnection({
 });
 
 router.get('/', (req, res, next) => {
-    let sql = "SELECT dateSensed, ppmVal, levels FROM current_state;";
+    let sql = "SELECT dateSensed, ppmVal, levels, currentLevel FROM current_state WHERE DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(NOW(), '%d') UNION ALL SELECT id, dateeSensed, lastPPM, levelss FROM overall_states;";
 
     db.query(sql, (err, data, fields) => {
         if (err) throw err;
