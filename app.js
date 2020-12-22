@@ -11,7 +11,7 @@ const indexRouter = require('./routes/index');
 
 var board = new five.Board();
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 // var wss = new WebSocket.Server({port: 8080});
 var level = 8;
 
