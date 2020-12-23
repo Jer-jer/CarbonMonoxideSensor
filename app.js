@@ -13,7 +13,8 @@ var board = new five.Board();
 var app = express();
 var port = process.env.PORT || 3000;
 // var wss = new WebSocket.Server({port: 8080});
-var level = 8;
+
+var level;
 
 //CONNECT DB
 const db = mysql.createConnection({
@@ -55,6 +56,13 @@ db.connect((err) => {
 let insert = "INSERT IGNORE INTO current_state (levels, dateSensed) VALUES (8, NOW());";
 db.query(insert, (err) => {
     if(err) throw err;
+});
+
+//SET LEVEL
+let ppmLevel = "SELECT levels FROM current_state";
+db.query(ppmLevel, (err, data) => {
+    if(err) throw err;
+    level = data || 8;
 });
 
 //UPDATE LEVEL

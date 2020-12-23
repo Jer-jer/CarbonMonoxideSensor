@@ -30,4 +30,4 @@ DO
 INSERT INTO overall_states (id, lastPPM, dateSensed, levels)
 SELECT id, ppmVal, dateeSensed, levelss
 FROM current_state
-WHERE dateSensed = DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(NOW(), '%d');
+WHERE dateSensed = DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(DATEADD(day, -1, CAST(GETDATE() AS date)), '%d');
