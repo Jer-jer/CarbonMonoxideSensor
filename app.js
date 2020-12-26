@@ -14,7 +14,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 // var wss = new WebSocket.Server({port: 8080});
 
-var level;
+var level = 8;
 
 //CONNECT DB
 const db = mysql.createConnection({
@@ -59,11 +59,11 @@ db.query(insert, (err) => {
 });
 
 //SET LEVEL
-let ppmLevel = "SELECT levels FROM current_state";
-db.query(ppmLevel, (err, data) => {
-    if(err) throw err;
-    level = data || 8;
-});
+// let ppmLevel = "SELECT levels FROM current_state WHERE DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(NOW(), '%d');";
+// db.query(ppmLevel, (err, data) => {
+//     if(err) throw err;
+//     level = data;
+// });
 
 //UPDATE LEVEL
 app.post('/', function(req, res) {
