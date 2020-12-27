@@ -23,11 +23,11 @@ CREATE TABLE overall_states(
     FOREIGN KEY (id) REFERENCES current_state(idNum)
 );
 
-CREATE EVENT dataTransfer
-ON SCHEDULE 
-EVERY 1 DAY
-DO
-INSERT INTO overall_states (id, lastPPM, dateSensed, levels)
-SELECT id, ppmVal, dateeSensed, levelss
-FROM current_state
-WHERE dateSensed = DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(DATEADD(day, -1, CAST(GETDATE() AS date)), '%d');
+-- CREATE EVENT dataTransfer
+-- ON SCHEDULE 
+-- EVERY 1 DAY
+-- DO
+-- INSERT INTO overall_states (id, lastPPM, dateSensed, levels)
+-- SELECT id, ppmVal, dateeSensed, levelss
+-- FROM current_state
+-- WHERE dateSensed = DATE_FORMAT(dateSensed, '%d') = DATE_FORMAT(DATEADD(day, -1, CAST(GETDATE() AS date)), '%d');

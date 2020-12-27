@@ -21,7 +21,8 @@ const db = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'sensordb'
+    database : 'sensordb',
+    multipleStatements: true
 });
 
 //Create Route and Open Server

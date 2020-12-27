@@ -54,6 +54,7 @@
                             <h2 class="space1 val"><%=data.currentLevel%></h2>
                             <h1 class="space2">Gas Value(0-1023):</h1>
                             <h2 class="val"><%=data.ppmVal%></h2>
+                            <%})    }%>
                         </center>
                         <!-- ================
                             HI ALLAN! Here's a link
@@ -80,9 +81,12 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <th scope="row"><%=data.dateeSensed%></th>
-                                <td><%=data.lastPPM%></td>
-                                <td><%=data.levelss%></td>
+                                <%if(pastData.length > 0){
+                                    pastData.forEach(function(data){
+                                %>  
+                                <th scope="row"><%=data.dateSensed%></th>
+                                <td><%=data.ppmVal%></td>
+                                <td><%=data.levels%></td>
                               </tr>
                               <%})    }%>
                             </tbody>
