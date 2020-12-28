@@ -5,6 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Carbon Monoxide Detector</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="refresh" content="5">
     <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/footer.css'>
     <link rel="icon" type="image/png" href="images/favicon.ico"/>
@@ -32,7 +33,7 @@
                                 sensorData.forEach(function(data){
                             %>
                             <p class="labels hakdog">Date Today:</p>
-                            <p class="labels hakdog2"><%=data.dateSensed%></p>
+                            <p class="labels hakdog2"><%=convertDate(data.dateSensed)%></p>
                             <br>
                             <br>
                             <div class="form-group">
@@ -40,11 +41,14 @@
                             <p style="font-size: 12px;">How strong do you like it?</p>
     
                                 <center> 
-                                    <input id="slider11" name="level" class="border-0 slider" type="range" min="1" max="10" value="<%=data.levels%>"/>
+                                    <input id="slider11" name="level" class="border-0 slider" type="range" min="0" max="10" value="<%=data.levels%>"/>
                                     <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan textSpan" style="font-size: 28px;"></span>
                                 </center>
                             </div>
-                            <button type="submit" name="submit" class="btn btn-primary button" style="margin-bottom: 15px !important;">Submit</button>
+                            <button type="submit" name="submit" id="play" class="btn btn-primary button" style="margin-bottom: 15px !important;">Submit</button>
+                            <!-- AUDIO HERE -->
+                            <audio id="beep" src="https://www.soundjay.com/button/sounds/button-8.mp3"></audio>
+                            <!-- AUDIO HERE -->
                         </form>
                     </div>
 
@@ -76,7 +80,6 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">PPM</th>
                                 <th scope="col">Level</th>
-                                <th scope="col">Status</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -84,7 +87,7 @@
                                 <%if(pastData.length > 0){
                                     pastData.forEach(function(data){
                                 %>  
-                                <th scope="row"><%=data.dateSensed%></th>
+                                <th scope="row"><%= convertDate(data.dateSensed)%></th>
                                 <td><%=data.ppmVal%></td>
                                 <td><%=data.levels%></td>
                               </tr>
@@ -117,16 +120,22 @@
           
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="js/designs.js"></script>
-<script>
-    n =  new Date();
-    y = n.getFullYear();
-    m = n.getMonth() + 1;
-    d = n.getDate();
-    dy = n.getDay();
-    var weekday = new Array("Sunday", "Monday", "Tuesday", "Wednesday",
-                    "Thursday", "Friday", "Saturday");
-    document.getElementById("date").innerHTML = m + "/" + d + "/" + y + " " + weekday[dy];
-</script>
+<%if(levelCheck.length > 0){
+    levelCheck.forEach(function(data){ %>
+    <script>
+        let sound = document.getElementById('beep');
+        sound.loop = true;
+        var level = <%= data.currentLevel %>;
+        var val1 = document.getElementById('slider11').value;
+
+        if (level >= val1) {
+        sound.play();
+        // alert("Carbon Monoxide Detected!");
+    }
+    </script>
+
+<%   })}%>
+<!-- AUDIO JS HERE -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </body>
