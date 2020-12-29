@@ -7,6 +7,15 @@
     background-size: 100%;
     
 }
+
+.status{
+    text-align: center;
+}
+
+.status h3{
+    display: inline-block;
+}
+
 .bygroup{
     font-family: 'Noto Sans JP', sans-serif;
 }
@@ -102,8 +111,4 @@ form {
 
 .space2{
     margin-top: 50px;
-}
-
-.val{
-    color: green;
 }

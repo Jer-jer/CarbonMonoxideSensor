@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -8,65 +9,81 @@
     <meta http-equiv="refresh" content="5">
     <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/footer.css'>
-    <link rel="icon" type="image/png" href="images/favicon.ico"/>
+    <link rel="icon" type="image/png" href="images/favicon.ico" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
+
 <body>
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                    <h1 class="display-4 hakdog3">Carbon Monoxide Detector</h1>
-                    <p class="lead lead2">using Arduino Uno.</p>
-                    <p class="bygroup">by Allan, Monica, and Mychaela.</p>
-                    </div>
-                </div>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 hakdog3">Carbon Monoxide Detector</h1>
+            <p class="lead lead2">using Arduino Uno.</p>
+            <p class="bygroup">by Allan, Monica, and Mychaela.</p>
+        </div>
+    </div>
 
-                <div class="container bud">
-                    <div class="fluid-container flex-child first">
-                        <form method="POST" action="/">
-                            <h1 style="color: red;">
-                                WARNING!! CHANGE AT YOUR OWN RISK!!
-                            </h1>
-                            <br>
-                            <%if(sensorData.length > 0){
-                                sensorData.forEach(function(data){
-                            %>
-                            <p class="labels hakdog">Date Today:</p>
-                            <p class="labels hakdog2"><%=convertDate(data.dateSensed)%></p>
-                            <br>
-                            <br>
-                            <div class="form-group">
-                            <label for="exampleFormControlSelect1" class="labels">Level:</label>
-                            <p style="font-size: 12px;">How strong do you like it?</p>
-    
-                                <center> 
-                                    <input id="slider11" name="level" class="border-0 slider" type="range" min="0" max="10" value="<%=data.levels%>"/>
-                                    <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan textSpan" style="font-size: 28px;"></span>
-                                </center>
-                            </div>
-                            <button type="submit" name="submit" id="play" class="btn btn-primary button" style="margin-bottom: 15px !important;">Submit</button>
-                            <!-- AUDIO HERE -->
-                            <audio id="beep" src="https://www.soundjay.com/button/sounds/button-8.mp3"></audio>
-                            <!-- AUDIO HERE -->
-                        </form>
-                    </div>
+    <div class="status" id="status">
+        <h3>Status: <h3 id="message"></h3></h3>
+    </div>
+    <br>
+    <div class="container bud">
+        <br>
+        <div class="fluid-container flex-child first">
+            <form method="POST" action="/">
+                <h1 style="color: red;">
+                    WARNING!! CHANGE AT YOUR OWN RISK!!
+                </h1>
+                <br>
+                <%if(sensorData.length> 0){
+                    sensorData.forEach(function(data){
+                    %>
+                    <p class="labels hakdog">Date Today:</p>
+                    <p class="labels hakdog2">
+                        <%=convertDate(data.dateSensed)%>
+                    </p>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1" class="labels">Level:</label>
+                        <p style="font-size: 12px;">How strong do you like it?</p>
 
-                    <div class="container-fluid flex-child second">
                         <center>
-                            <h1>Gas Level:</h1>
-                            <h2 class="space1 val"><%=data.currentLevel%></h2>
-                            <h1 class="space2">Gas Value(0-1023):</h1>
-                            <h2 class="val"><%=data.ppmVal%></h2>
-                            <%})    }%>
+                            <input id="slider11" name="level" class="border-0 slider" type="range" min="0" max="10"
+                                value="<%=data.levels%>" />
+                            <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan textSpan"
+                                style="font-size: 28px;"></span>
                         </center>
-                        <!-- ================
+                    </div>
+                    <button type="submit" name="submit" id="play" class="btn btn-primary button"
+                        style="margin-bottom: 15px !important;">Submit</button>
+                    <!-- AUDIO HERE -->
+                    <audio id="beep" src="https://www.soundjay.com/button/sounds/button-8.mp3"></audio>
+                    <!-- AUDIO HERE -->
+            </form>
+        </div>
+
+        <div class="container-fluid flex-child second">
+            <center>
+                <h1>Gas Level:</h1>
+                <h2 class="space1" id="actualLevel">
+                    <%=data.currentLevel%>
+                </h2>
+                <h1 class="space2">Gas Value(0-1023):</h1>
+                <h2 id="actualVal">
+                    <%=data.ppmVal%>
+                </h2>
+                <%}) }%>
+            </center>
+            <!-- ================
                             HI ALLAN! Here's a link
                             to get data from MySQL Database
                             to appear on the table:
                             https://stackoverflow.com/questions/38008406/node-js-mysql-display-table-on-html-site
                         ======================-->
-                        <!-- ================
+            <!-- ================
                             HI ALLAN! Here's a link
                             for the SELECT Query to 
                             select the LAST (latest) N 
@@ -74,69 +91,90 @@
                             diba? latest na 5 rows sa database?
                             https://stackoverflow.com/questions/12125904/select-last-n-rows-from-mysql
                         ======================-->
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">PPM</th>
-                                <th scope="col">Level</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <%if(pastData.length > 0){
-                                    pastData.forEach(function(data){
-                                %>  
-                                <th scope="row"><%= convertDate(data.dateSensed)%></th>
-                                <td><%=data.ppmVal%></td>
-                                <td><%=data.levels%></td>
-                              </tr>
-                              <%})    }%>
-                            </tbody>
-                          </table>
-                    </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">PPM</th>
+                        <th scope="col">Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <%if(pastData.length> 0){
+                            pastData.forEach(function(data){
+                            %>
+                            <th scope="row">
+                                <%= convertDate(data.dateSensed)%>
+                            </th>
+                            <td>
+                                <%=data.ppmVal%>
+                            </td>
+                            <td>
+                                <%=data.levels%>
+                            </td>
+                    </tr>
+                    <%}) }%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <h6>About</h6>
+                    <p class="text-justify">Carbon Monoxide <i>is an odorless gas. </i>
+                        It can kill you if you inhale too much of it.</p>
                 </div>
-            
-                <footer class="site-footer">
-                    <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                        <h6>About</h6>
-                        <p class="text-justify">Carbon Monoxide <i>is an odorless gas. </i> 
-                            It can kill you if you inhale too much of it.</p>
-                        </div>       
-                    <div class="container">
+                <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-sm-6 col-xs-12">
-                        <p class="copyright-text">Copyright &copy; 2012 All Rights Reserved by 
-                    BargamentoBarrientosFlorida.
-                        </p>
+                            <p class="copyright-text">Copyright &copy; 2012 All Rights Reserved by
+                                BargamentoBarrientosFlorida.
+                            </p>
                         </div>
-            
-                        
-                    </div>
-                    </div>
-                </footer>
-          
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="js/designs.js"></script>
-<%if(levelCheck.length > 0){
-    levelCheck.forEach(function(data){ %>
-    <script>
-        let sound = document.getElementById('beep');
-        sound.loop = true;
-        var level = <%= data.currentLevel %>;
-        var val1 = document.getElementById('slider11').value;
 
-        if (level >= val1) {
-        sound.play();
-        // alert("Carbon Monoxide Detected!");
-    }
-    </script>
 
-<%   })}%>
-<!-- AUDIO JS HERE -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+                    </div>
+                </div>
+    </footer>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="js/designs.js"></script>
+    <%if(levelCheck.length> 0){
+        levelCheck.forEach(function(data){ %>
+        <script>
+            let sound = document.getElementById('beep');
+            sound.loop = true;
+            var level = <%= data.currentLevel %>;
+            var val1 = document.getElementById('slider11').value;
+
+            if (level >= val1) {
+                sound.play();
+                document.getElementById("message").innerHTML = "&nbspCARBON MONOXIDE DETECTED";
+                document.getElementById("status").style.color = "red";
+                document.getElementById("actualVal").style.color = "red";
+                document.getElementById("actualLevel").style.color = "red";
+                
+                // alert("Carbon Monoxide Detected!");
+            }else{
+                document.getElementById("message").innerHTML = "&nbspOkay";
+                document.getElementById("status").style.color = "green";
+                document.getElementById("actualVal").style.color = "green";
+                document.getElementById("actualLevel").style.color = "green";
+            }
+        </script>
+
+        <% })}%>
+            <!-- AUDIO JS HERE -->
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+                crossorigin="anonymous"></script>
 </body>
+
 </html>
